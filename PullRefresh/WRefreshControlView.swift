@@ -10,24 +10,6 @@ import UIKit
 
 
 /**
-WReFreshControlState 刷新状态枚举
-
-- Normal:  正常
-- Pulling: 向下拉
-- Success: 刷新成功
-- Fail:    刷新失败
-*/
-enum WReFreshControlState:Int{
-
-    case Normal     = 0
-    case Pulling    = 1
-    case Refreshing = 2
-    case Success    = 4
-    case Fail       = 5
-}
-
-
-/**
 *  WRefreshControlViewDelegate 协议
 */
 protocol WRefreshControlViewDelegate{
@@ -48,14 +30,19 @@ class WRefreshControlView: UIView {
         return CGPointZero
     }()
     
-    @IBOutlet weak var stateLabel: UILabel!
+    private var stateLabel: UILabel!
     
-    @IBOutlet weak var refreshImageView: UIImageView!
+    private var refreshImageView: UIImageView!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
     }
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
 
     //MARK: - Public -
     func reloadData(){

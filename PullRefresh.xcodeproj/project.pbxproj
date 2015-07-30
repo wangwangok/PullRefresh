@@ -14,8 +14,8 @@
 		1EB85FD81B6A1A6A007D5DA4 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1EB85FD61B6A1A6A007D5DA4 /* LaunchScreen.xib */; };
 		1EB85FE41B6A1A6A007D5DA4 /* PullRefreshTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB85FE31B6A1A6A007D5DA4 /* PullRefreshTests.swift */; };
 		1EB85FEE1B6A1BC1007D5DA4 /* WRefreshControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB85FED1B6A1BC1007D5DA4 /* WRefreshControlView.swift */; };
-		1EB85FF01B6A2E4D007D5DA4 /* WRefreshControlView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1EB85FEF1B6A2E4D007D5DA4 /* WRefreshControlView.xib */; };
 		1EB85FF21B6A3285007D5DA4 /* Refresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1EB85FF11B6A3285007D5DA4 /* Refresh.bundle */; };
+		33AB32C91B6A5C6900403065 /* WRefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33AB32C81B6A5C6900403065 /* WRefreshControl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,8 +40,8 @@
 		1EB85FE21B6A1A6A007D5DA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1EB85FE31B6A1A6A007D5DA4 /* PullRefreshTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullRefreshTests.swift; sourceTree = "<group>"; };
 		1EB85FED1B6A1BC1007D5DA4 /* WRefreshControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WRefreshControlView.swift; sourceTree = "<group>"; };
-		1EB85FEF1B6A2E4D007D5DA4 /* WRefreshControlView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WRefreshControlView.xib; sourceTree = "<group>"; };
 		1EB85FF11B6A3285007D5DA4 /* Refresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Refresh.bundle; sourceTree = "<group>"; };
+		33AB32C81B6A5C6900403065 /* WRefreshControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WRefreshControl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,8 +86,8 @@
 				1EB85FCD1B6A1A6A007D5DA4 /* AppDelegate.swift */,
 				1EB85FCF1B6A1A6A007D5DA4 /* ViewController.swift */,
 				1EB85FD11B6A1A6A007D5DA4 /* Main.storyboard */,
+				33AB32C81B6A5C6900403065 /* WRefreshControl.swift */,
 				1EB85FED1B6A1BC1007D5DA4 /* WRefreshControlView.swift */,
-				1EB85FEF1B6A2E4D007D5DA4 /* WRefreshControlView.xib */,
 				1EB85FF11B6A3285007D5DA4 /* Refresh.bundle */,
 				1EB85FD41B6A1A6A007D5DA4 /* Images.xcassets */,
 				1EB85FD61B6A1A6A007D5DA4 /* LaunchScreen.xib */,
@@ -203,7 +203,6 @@
 			files = (
 				1EB85FD31B6A1A6A007D5DA4 /* Main.storyboard in Resources */,
 				1EB85FD81B6A1A6A007D5DA4 /* LaunchScreen.xib in Resources */,
-				1EB85FF01B6A2E4D007D5DA4 /* WRefreshControlView.xib in Resources */,
 				1EB85FF21B6A3285007D5DA4 /* Refresh.bundle in Resources */,
 				1EB85FD51B6A1A6A007D5DA4 /* Images.xcassets in Resources */,
 			);
@@ -226,6 +225,7 @@
 				1EB85FEE1B6A1BC1007D5DA4 /* WRefreshControlView.swift in Sources */,
 				1EB85FD01B6A1A6A007D5DA4 /* ViewController.swift in Sources */,
 				1EB85FCE1B6A1A6A007D5DA4 /* AppDelegate.swift in Sources */,
+				33AB32C91B6A5C6900403065 /* WRefreshControl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
