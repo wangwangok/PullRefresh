@@ -8,6 +8,9 @@
 
 import UIKit
 let kScreenWidth:CGFloat = UIScreen.mainScreen().bounds.width
+
+let kBundlePath:String = NSBundle.mainBundle().pathForResource("Refresh", ofType: "bundle")!
+
 /**
 WReFreshControlState 刷新状态枚举
 

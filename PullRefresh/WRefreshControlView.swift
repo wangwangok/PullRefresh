@@ -37,7 +37,14 @@ class WRefreshControlView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        stateLabel = UILabel()
+        stateLabel.text = "下拉刷新"
+        self.addSubview(stateLabel)
         
+        refreshImageView = UIImageView()
+        var imagePath = kBundlePath+"tableview_pull_refresh@3x"
+        refreshImageView.image = UIImage(contentsOfFile: imagePath)
+        self.addSubview(refreshImageView)
     }
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
