@@ -11,3 +11,5 @@
 5.提供了willrefresh，didrefresh，willfinishedrefresh，didfinishedreshresh接口。
 
 上拉加载后续更新
+
+如果被搜索到了，请谨慎使用，因为这个库的没有经过严格测试
