@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="geX-ZL-Afn">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <scenes>
@@ -50,7 +51,15 @@
                             <constraint firstItem="Ocm-Ei-Glf" firstAttribute="top" secondItem="bwZ-eT-8wD" secondAttribute="bottom" id="yxM-bg-lWX"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="af7-pV-XQS"/>
+                    <navigationItem key="navigationItem" id="af7-pV-XQS">
+                        <barButtonItem key="rightBarButtonItem" title="StopRefresh" id="oqG-Sc-kgF">
+                            <connections>
+                                <action selector="endRefresh:" destination="9Ml-c5-e0A" id="jl3-9E-dCE"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="480"/>
                     <connections>
                         <outlet property="tableVIew" destination="bwZ-eT-8wD" id="Ibz-zW-D4q"/>
                     </connections>
