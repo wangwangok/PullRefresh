@@ -12,17 +12,21 @@ import UIKit
 class WRefreshControlView: UIView {
   let kDistanceOfLabelAndImageView:CGFloat = 10
   /// 刷新状态
-  var refreshState:WReFreshControlState = {
-    return WReFreshControlState.Normal
+  var refreshState:WRefreshControlState = {
+    return WRefreshControlState.Normal
     }()
   
   var targetContentSet:CGPoint={
     return CGPointZero
     }()
   
-  var stateLabel: UILabel = UILabel()
+  lazy private var stateLabel: UILabel = {
+      return UILabel()
+    }()
   
-  var refreshImageView: UIImageView = UIImageView()
+  lazy private var refreshImageView: UIImageView = {
+      return UIImageView()
+    }()
   
   private var timer:NSTimer?
   
@@ -49,7 +53,7 @@ class WRefreshControlView: UIView {
     fatalError("init(coder:) has not been implemented")
   }
   
-  func reloadData(state:WReFreshControlState){
+  func reloadData(state:WRefreshControlState){
     self.onChangeRefreshState(state)
     self.refreshState = state
     self.setNeedsLayout()
@@ -57,11 +61,11 @@ class WRefreshControlView: UIView {
   
   override func layoutSubviews() {
     super.layoutSubviews()
-    //stateLabel.text = "释放刷新"
+
   }
   
   //MARK: - Private -
-  private func onChangeRefreshState(state:WReFreshControlState){
+  private func onChangeRefreshState(state:WRefreshControlState){
     /**
     *  移除无限循环动画
     */
@@ -70,15 +74,15 @@ class WRefreshControlView: UIView {
     }
     
     switch state.rawValue{
-    case WReFreshControlState.Normal.rawValue:
+    case WRefreshControlState.Normal.rawValue:
       stateLabel.text = "下拉刷新"
       var imagePath = kBundlePath+"/tableview_pull_refresh"
       refreshImageView.image = UIImage(contentsOfFile: imagePath)
-    case WReFreshControlState.Pulling.rawValue:
+    case WRefreshControlState.Pulling.rawValue:
       animationWithLabelAndImageView("下拉刷新", pi: -CGFloat(0))
-    case WReFreshControlState.CanRefresh.rawValue:
+    case WRefreshControlState.CanRefresh.rawValue:
       animationWithLabelAndImageView("释放更新", pi: CGFloat(M_PI))
-    case WReFreshControlState.Refreshing.rawValue:
+    case WRefreshControlState.Refreshing.rawValue:
       self.stateLabel.text        = "加载中..."
       var imagePath               = kBundlePath+"/tableview_loading"
       self.refreshImageView.image = UIImage(contentsOfFile: imagePath)

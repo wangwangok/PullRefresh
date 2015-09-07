@@ -10,6 +10,8 @@
 import UIKit
 let kScreenWidth:CGFloat = UIScreen.mainScreen().bounds.width
 
+let kScreenHeight:CGFloat = UIScreen.mainScreen().bounds.height
+
 let kBundlePath:String = NSBundle.mainBundle().pathForResource("Refresh", ofType: "bundle")!
 
 /**
@@ -20,7 +22,7 @@ WReFreshControlState 刷新状态枚举
 - CanRefresh: 可以刷新
 - Refreshing: 刷新
 */
-enum WReFreshControlState:Int{
+enum WRefreshControlState:Int{
   
   case Normal     = 0
   case Pulling    = 1
@@ -74,7 +76,7 @@ class WRefreshControl: NSObject,UIScrollViewDelegate {
   
   private var scrollView:UIScrollView?
   
-  private var refreshState:WReFreshControlState = WReFreshControlState.Normal
+  private var refreshState:WRefreshControlState = WRefreshControlState.Normal
   
   private let targetOffSet:CGPoint = {
     return CGPointMake(0, -128)
@@ -145,14 +147,14 @@ class WRefreshControl: NSObject,UIScrollViewDelegate {
   }
   
   private func changeStateWithRefreingAndNormal(scrollView: UIScrollView){
-    var state:WReFreshControlState?
+    var state:WRefreshControlState?
     if(scrollView.contentInset.top == -targetOffSet.y){
-      state = WReFreshControlState.Refreshing
+      state = WRefreshControlState.Refreshing
       self.delegate?.refreshControlDidStartRefresh?(self)
       let timer:NSTimer = NSTimer.scheduledTimerWithTimeInterval(self.timeoutInterval!, target: self, selector: "timer:", userInfo: nil, repeats: false)
       NSRunLoop.currentRunLoop().addTimer(timer, forMode: NSRunLoopCommonModes)
     }else{
-      state = WReFreshControlState.Normal
+      state = WRefreshControlState.Normal
     }
     refreshView.reloadData(state!)
   }
@@ -165,9 +167,9 @@ class WRefreshControl: NSObject,UIScrollViewDelegate {
       changeStateWithRefreingAndNormal(scrollView)
     }else{
       if(scrollView.contentOffset.y <= targetOffSet.y){
-        refreshView.reloadData(WReFreshControlState.CanRefresh)
+        refreshView.reloadData(WRefreshControlState.CanRefresh)
       }else if(scrollView.contentInset.top != -targetOffSet.y){
-        refreshView.reloadData(WReFreshControlState.Pulling)
+        refreshView.reloadData(WRefreshControlState.Pulling)
       }
     }
   }
