@@ -21,11 +21,11 @@ class WRefreshControlView: UIView {
     }()
   
   lazy private var stateLabel: UILabel = {
-      return UILabel()
+    return UILabel()
     }()
   
   lazy private var refreshImageView: UIImageView = {
-      return UIImageView()
+    return UIImageView()
     }()
   
   private var timer:NSTimer?
@@ -61,7 +61,7 @@ class WRefreshControlView: UIView {
   
   override func layoutSubviews() {
     super.layoutSubviews()
-
+    
   }
   
   //MARK: - Private -

@@ -2,7 +2,7 @@
 //  WRefreshControl.swift
 //  PullRefresh
 //
-//  Created by 王望 on 15/7/30.
+//  Created by Vivien on 15/7/30.
 //  Copyright (c) 2015年 wangwang. All rights reserved.
 //
 
@@ -68,7 +68,7 @@ enum WRefreshControlState:Int{
   optional func refreshControlDidFinishedRefresh(refreshControl:WRefreshControl)->Void
 }
 
-class WRefreshControl: NSObject,UIScrollViewDelegate {
+class WRefreshControl: NSObject {
   
   weak var delegate:WRefreshControlDelegate?
   
@@ -76,7 +76,7 @@ class WRefreshControl: NSObject,UIScrollViewDelegate {
   
   private var scrollView:UIScrollView?
   
-  private var refreshState:WRefreshControlState = WRefreshControlState.Normal
+  private var refreshState:WRefreshControlState?
   
   private let targetOffSet:CGPoint = {
     return CGPointMake(0, -128)
@@ -88,6 +88,8 @@ class WRefreshControl: NSObject,UIScrollViewDelegate {
   private var isManualRefresh:Bool = false
   
   private var timeout:NSDate!
+  
+  private var timer:NSTimer?
   
   convenience init(scrollView:UIScrollView,delegate:WRefreshControlDelegate?,timeoutInterval:Double?){
     self.init()
@@ -131,7 +133,8 @@ class WRefreshControl: NSObject,UIScrollViewDelegate {
       println("timeout:\(self.timeout),nsdate:\(NSDate())")
       if NSDate.timeIntervalSinceReferenceDate() >= self.timeout.timeIntervalSinceReferenceDate{
         self.endRefresh()
-        timer.invalidate()
+        self.timer?.invalidate()
+        self.timer = nil
       }
     })
   }
@@ -147,16 +150,18 @@ class WRefreshControl: NSObject,UIScrollViewDelegate {
   }
   
   private func changeStateWithRefreingAndNormal(scrollView: UIScrollView){
-    var state:WRefreshControlState?
+   // var state:WRefreshControlState?
     if(scrollView.contentInset.top == -targetOffSet.y){
-      state = WRefreshControlState.Refreshing
-      self.delegate?.refreshControlDidStartRefresh?(self)
-      let timer:NSTimer = NSTimer.scheduledTimerWithTimeInterval(self.timeoutInterval!, target: self, selector: "timer:", userInfo: nil, repeats: false)
-      NSRunLoop.currentRunLoop().addTimer(timer, forMode: NSRunLoopCommonModes)
+      if refreshState != WRefreshControlState.Refreshing {
+        refreshState = WRefreshControlState.Refreshing
+        self.delegate?.refreshControlDidStartRefresh?(self)
+      }
+      timer = NSTimer.scheduledTimerWithTimeInterval(self.timeoutInterval!, target: self, selector: "timer:", userInfo: nil, repeats: false)
+      NSRunLoop.currentRunLoop().addTimer(timer!, forMode: NSRunLoopCommonModes)
     }else{
-      state = WRefreshControlState.Normal
+      refreshState = WRefreshControlState.Normal
     }
-    refreshView.reloadData(state!)
+    refreshView.reloadData(refreshState!)
   }
   
   private func changeStateWithRefreshingAndPulling(scrollView: UIScrollView,refreshView:WRefreshControlView){

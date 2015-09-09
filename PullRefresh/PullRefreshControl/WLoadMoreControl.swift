@@ -154,8 +154,9 @@ extension WLoadMoreControl:UIScrollViewDelegate{
     if scrollView != self.scrollView {
       return
     }
+    println("在loadmore中的打印的contentsety:\(scrollView.contentOffset.y)")
     if (scrollView.contentInset.bottom == enableLoadSety){
-    
+      
     }else{
       if scrollView.contentOffset.y - maxContenOfsety >= enableLoadSety{
         loadMoreView?.reloadData(WRefreshControlState.CanRefresh)
@@ -168,7 +169,7 @@ extension WLoadMoreControl:UIScrollViewDelegate{
   func scrollViewWillBeginDragging(scrollView: UIScrollView) {
     
   }
-
+  
   func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
     if scrollView != self.scrollView {
       return

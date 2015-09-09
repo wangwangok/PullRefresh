@@ -9,7 +9,7 @@
 import UIKit
 
 class WLoadMoreControlView: UIView {
-
+  
   
   lazy private var stateLabel: UILabel = {
     return UILabel()
@@ -28,9 +28,9 @@ class WLoadMoreControlView: UIView {
     super.init(frame: frame)
     setup(stateLabel, refreshImage: refreshImageView)
   }
-
+  
   required init(coder aDecoder: NSCoder) {
-      fatalError("init(coder:) has not been implemented")
+    fatalError("init(coder:) has not been implemented")
   }
   
   func reloadData(state:WRefreshControlState){

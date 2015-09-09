@@ -71,8 +71,8 @@
 			children = (
 				1E4798691B9DA34400285C19 /* Refresh.bundle */,
 				1E47986A1B9DA34400285C19 /* WLoadMoreControl.swift */,
-				1E47986B1B9DA34400285C19 /* WLoadMoreControlView.swift */,
 				1E47986C1B9DA34400285C19 /* WRefreshControl.swift */,
+				1E47986B1B9DA34400285C19 /* WLoadMoreControlView.swift */,
 				1E47986D1B9DA34400285C19 /* WRefreshControlView.swift */,
 			);
 			path = PullRefreshControl;
