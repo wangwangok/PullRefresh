@@ -29,7 +29,7 @@ class WLoadMoreControlView: UIView {
     setup(stateLabel, refreshImage: refreshImageView)
   }
   
-  required init(coder aDecoder: NSCoder) {
+  required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
   
@@ -49,7 +49,7 @@ class WLoadMoreControlView: UIView {
     
     imageView.center = CGPointMake(self.frame.width/2-16, stateLabel.center.y)
     imageView.bounds = CGRectMake(0, 0, 32, 32)
-    var imagePath = kBundlePath+"/tableview_loading"
+    let imagePath = kBundlePath+"/tableview_loading"
     imageView.image = UIImage(contentsOfFile: imagePath)
     self.addSubview(imageView)
     onChangeRefreshState(refreshState)
@@ -78,7 +78,7 @@ class WLoadMoreControlView: UIView {
       stateLabel.text           = "正在加载..."
       stateLabel.frame.origin.x = self.frame.width/2
       stateLabel.textAlignment  = NSTextAlignment.Left
-      var imagePath             = kBundlePath+"/tableview_loading"
+      let imagePath             = kBundlePath+"/tableview_loading"
       refreshImageView.image    = UIImage(contentsOfFile: imagePath)
       animationWithCircle()
     default:
@@ -88,7 +88,7 @@ class WLoadMoreControlView: UIView {
   
   private func animationWithCircle(){
     
-    var rotationAnimation:CABasicAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
+    let rotationAnimation:CABasicAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
     rotationAnimation.fromValue            = 0 as NSValue
     rotationAnimation.toValue              = M_PI * 2.0 as NSValue
     rotationAnimation.duration             = 0.8;

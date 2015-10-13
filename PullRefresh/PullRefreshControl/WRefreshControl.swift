@@ -30,40 +30,40 @@ enum WRefreshControlState:Int{
   case Refreshing = 3
 }
 
-@objc protocol WRefreshControlDelegate{
+@objc protocol WRefreshControlDelegate:class{
   /**
   将要开始刷新
   
-  :param: refreshControl refreshControl
+  - parameter refreshControl: refreshControl
   
-  :returns: Void
+  - returns: Void
   */
   optional func refreshControlWillStartRefresh(refreshControl:WRefreshControl)->Void
   
   /**
   已经开始刷新
   
-  :param: refreshControl refreshControl
+  - parameter refreshControl: refreshControl
   
-  :returns: Void
+  - returns: Void
   */
   optional func refreshControlDidStartRefresh(refreshControl:WRefreshControl)->Void
   
   /**
   将要结束刷新
   
-  :param: refreshControl refreshControl
+  - parameter refreshControl: refreshControl
   
-  :returns: Void
+  - returns: Void
   */
   optional func refreshControlWillFinishedRefresh(refreshControl:WRefreshControl)->Void
   
   /**
   已经结束刷新
   
-  :param: refreshControl refreshControl
+  - parameter refreshControl: refreshControl
   
-  :returns: Void
+  - returns: Void
   */
   optional func refreshControlDidFinishedRefresh(refreshControl:WRefreshControl)->Void
 }
@@ -94,7 +94,7 @@ class WRefreshControl: NSObject {
   convenience init(scrollView:UIScrollView,delegate:WRefreshControlDelegate?,timeoutInterval:Double?){
     self.init()
     self.timeoutInterval      = timeoutInterval == nil ? 10.0 : timeoutInterval//默认的超时时长为10s
-    self.timeout              = NSDate(timeIntervalSinceNow: self.timeoutInterval!)
+    timeout              = NSDate(timeIntervalSinceNow: self.timeoutInterval!)
     refreshView               = WRefreshControlView(frame: CGRectMake(0, -kRefreshViewHeight, kScreenWidth, kRefreshViewHeight))
     self.scrollView           = scrollView
     self.delegate             = delegate
@@ -108,29 +108,29 @@ class WRefreshControl: NSObject {
   */
   func startRefresh(){
     isManualRefresh = true
-    self.scrollView!.contentOffset.y = targetOffSet.y
-    resetContentInSetTop(self.scrollView!)
-    changContenInSetTopToNormal(self.scrollView!)
+    scrollView!.contentOffset.y = targetOffSet.y
+    resetContentInSetTop(scrollView!)
+    changContenInSetTopToNormal(scrollView!)
   }
   
   /**
   用户手动关闭刷新动画
   
-  :param: refreshControl 刷新控件
-  :param: complete       完成
-  :param: failed         失败
+  - parameter refreshControl: 刷新控件
+  - parameter complete:       完成
+  - parameter failed:         失败
   */
   func endRefresh(){
-    self.delegate?.refreshControlWillFinishedRefresh?(self)
-    changContenInSetTopToNormal(self.scrollView!)
-    self.delegate?.refreshControlDidFinishedRefresh?(self)
+    delegate?.refreshControlWillFinishedRefresh?(self)
+    changContenInSetTopToNormal(scrollView!)
+    delegate?.refreshControlDidFinishedRefresh?(self)
   }
   
   //MARK: - Private -
   func timer(timer:NSTimer){
     
     dispatch_async(dispatch_get_main_queue(), { () -> Void in
-      println("timeout:\(self.timeout),nsdate:\(NSDate())")
+      print("timeout:\(self.timeout),nsdate:\(NSDate())")
       if NSDate.timeIntervalSinceReferenceDate() >= self.timeout.timeIntervalSinceReferenceDate{
         self.endRefresh()
         self.timer?.invalidate()
@@ -154,7 +154,7 @@ class WRefreshControl: NSObject {
     if(scrollView.contentInset.top == -targetOffSet.y){
       if refreshState != WRefreshControlState.Refreshing {
         refreshState = WRefreshControlState.Refreshing
-        self.delegate?.refreshControlDidStartRefresh?(self)
+        delegate?.refreshControlDidStartRefresh?(self)
       }
       timer = NSTimer.scheduledTimerWithTimeInterval(self.timeoutInterval!, target: self, selector: "timer:", userInfo: nil, repeats: false)
       NSRunLoop.currentRunLoop().addTimer(timer!, forMode: NSRunLoopCommonModes)

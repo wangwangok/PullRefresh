@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController,WRefreshControlDelegate {
+class ViewController: UIViewController {
   
   @IBOutlet weak var tableView: UITableView!
   
@@ -21,7 +21,7 @@ class ViewController: UIViewController,WRefreshControlDelegate {
   override func viewDidLoad() {
     super.viewDidLoad()
     refreshControl = WRefreshControl(scrollView: self.tableView, delegate: self, timeoutInterval: 3.0)
-    
+    refreshControl?.delegate = self
     refreshControl!.startRefresh()
     
     //loadMoreControl = WLoadMoreControl(scrollView: self.tableView, loadMoreDelegate: self, loadMoreType: nil)
@@ -46,7 +46,7 @@ class ViewController: UIViewController,WRefreshControlDelegate {
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    var cell = tableView.dequeueReusableCellWithIdentifier("cell") as? UITableViewCell
+    var cell = tableView.dequeueReusableCellWithIdentifier("cell")
     if(cell == nil){
       cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "cell")
     }
@@ -57,32 +57,32 @@ class ViewController: UIViewController,WRefreshControlDelegate {
 
 extension ViewController:WRefreshControlDelegate{
   func refreshControlWillStartRefresh(refreshControl: WRefreshControl) {
-    println("-----refreshControlWillStartRefresh")
+    print("-----refreshControlWillStartRefresh")
   }
   
   func refreshControlDidStartRefresh(refreshControl: WRefreshControl) {
-    println("<<<<<<refreshControlDidStartRefresh")
+    print("<<<<<<refreshControlDidStartRefresh")
   }
   
   func refreshControlWillFinishedRefresh(refreshControl: WRefreshControl) {
-    println(">>>>>>>refreshControlWillFinishedRefresh")
+    print(">>>>>>>refreshControlWillFinishedRefresh")
   }
   
   func refreshControlDidFinishedRefresh(refreshControl: WRefreshControl) {
-    println("~~~~~~~refreshControlDidFinishedRefresh")
+    print("~~~~~~~refreshControlDidFinishedRefresh")
   }
 }
 
 extension ViewController:WLoadMoreControlDelegate{
   func loadMoreControlDidStartRefresh(loadMoreControl: WLoadMoreControl) {
-    println("-----loadMoreControlDidStartRefresh------")
+    print("-----loadMoreControlDidStartRefresh------")
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(Double(3.0) * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) { () -> Void in
       
     }
   }
   
   func loadMoreControlDidFinishedRefresh(loadMoreControl: WLoadMoreControl) {
-    println("loadMoreControlDidFinishedRefresh")
+    print("loadMoreControlDidFinishedRefresh")
     self.number += 10
     self.tableView.reloadData()
   }

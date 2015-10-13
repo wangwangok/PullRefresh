@@ -21,35 +21,33 @@ class WRefreshControlView: UIView {
     }()
   
   lazy private var stateLabel: UILabel = {
-    return UILabel()
+    let stateLabel =  UILabel()
+    stateLabel.font = UIFont.systemFontOfSize(12)
+    stateLabel.textAlignment = NSTextAlignment.Left
+    /// label的右边缘在self的中心
+    stateLabel.frame = CGRectMake(self.frame.width/2, self.frame.height - self.kDistanceOfLabelAndImageView - 30, 100, 30)
+    self.addSubview(stateLabel)
+    return stateLabel
     }()
   
   lazy private var refreshImageView: UIImageView = {
-    return UIImageView()
+    let refreshImageView = UIImageView()
+    refreshImageView.center = CGPointMake(self.frame.width/2-16, self.stateLabel.center.y)
+    refreshImageView.bounds = CGRectMake(0, 0, 32, 32)
+    let imagePath = kBundlePath+"/tableview_pull_refresh"
+    refreshImageView.image = UIImage(contentsOfFile: imagePath)
+    self.addSubview(refreshImageView)
+    return refreshImageView
     }()
   
   private var timer:NSTimer?
   
   override init(frame: CGRect) {
     super.init(frame: frame)
-    /**
-    控件到下方的距离固定
-    */
     self.backgroundColor = UIColor.clearColor()
-    stateLabel.font = UIFont.systemFontOfSize(12)
-    stateLabel.textAlignment = NSTextAlignment.Left
-    /// label的右边缘在self的中心
-    stateLabel.frame = CGRectMake(self.frame.width/2, self.frame.height - kDistanceOfLabelAndImageView - 30, 100, 30)
-    self.addSubview(stateLabel)
-    
-    refreshImageView.center = CGPointMake(self.frame.width/2-16, stateLabel.center.y)
-    refreshImageView.bounds = CGRectMake(0, 0, 32, 32)
-    var imagePath = kBundlePath+"/tableview_pull_refresh"
-    refreshImageView.image = UIImage(contentsOfFile: imagePath)
-    self.addSubview(refreshImageView)
     onChangeRefreshState(refreshState)
   }
-  required init(coder aDecoder: NSCoder) {
+  required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
   
@@ -63,8 +61,10 @@ class WRefreshControlView: UIView {
     super.layoutSubviews()
     
   }
-  
-  //MARK: - Private -
+}
+
+private typealias PrivateFunction = WRefreshControlView
+extension PrivateFunction{
   private func onChangeRefreshState(state:WRefreshControlState){
     /**
     *  移除无限循环动画
@@ -76,7 +76,7 @@ class WRefreshControlView: UIView {
     switch state.rawValue{
     case WRefreshControlState.Normal.rawValue:
       stateLabel.text = "下拉刷新"
-      var imagePath = kBundlePath+"/tableview_pull_refresh"
+      let imagePath = kBundlePath+"/tableview_pull_refresh"
       refreshImageView.image = UIImage(contentsOfFile: imagePath)
     case WRefreshControlState.Pulling.rawValue:
       animationWithLabelAndImageView("下拉刷新", pi: -CGFloat(0))
@@ -84,7 +84,7 @@ class WRefreshControlView: UIView {
       animationWithLabelAndImageView("释放更新", pi: CGFloat(M_PI))
     case WRefreshControlState.Refreshing.rawValue:
       self.stateLabel.text        = "加载中..."
-      var imagePath               = kBundlePath+"/tableview_loading"
+      let imagePath               = kBundlePath+"/tableview_loading"
       self.refreshImageView.image = UIImage(contentsOfFile: imagePath)
       animationWithCircle()
     default:
@@ -95,7 +95,7 @@ class WRefreshControlView: UIView {
   private func animationWithLabelAndImageView(text:String ,pi:CGFloat){
     UIView.animateWithDuration(0.3, animations: { () -> Void in
       self.stateLabel.text = text
-      var imagePath = kBundlePath+"/tableview_pull_refresh"
+      let imagePath = kBundlePath+"/tableview_pull_refresh"
       self.refreshImageView.image = UIImage(contentsOfFile: imagePath)
       self.refreshImageView.transform = CGAffineTransformMakeRotation(pi)
       }, completion: { (Bool) -> Void in
@@ -105,10 +105,10 @@ class WRefreshControlView: UIView {
   
   private func animationWithCircle(){
     
-    var rotationAnimation:CABasicAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
+    let rotationAnimation:CABasicAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
     rotationAnimation.fromValue            = 0 as NSValue
     rotationAnimation.toValue              = M_PI * 2.0 as NSValue
-    rotationAnimation.duration             = 0.8;
+    rotationAnimation.duration             = 1.0;
     rotationAnimation.cumulative           = true;
     rotationAnimation.repeatCount          = 1000;
     self.refreshImageView.layer.addAnimation(rotationAnimation, forKey: "rotationAnimation")

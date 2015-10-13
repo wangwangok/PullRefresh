@@ -21,18 +21,18 @@ enum WLoadMoreType:Int{
   /**
   已经开始刷新
   
-  :param: loadMoreControl loadMoreControl
+  - parameter loadMoreControl: loadMoreControl
   
-  :returns: Void
+  - returns: Void
   */
   optional func loadMoreControlDidStartRefresh(loadMoreControl:WLoadMoreControl)->Void
   
   /**
   已经结束刷新
   
-  :param: loadMoreControl loadMoreControl
+  - parameter loadMoreControl: loadMoreControl
   
-  :returns: Void
+  - returns: Void
   */
   optional func loadMoreControlDidFinishedRefresh(loadMoreControl:WLoadMoreControl)->Void
 }
@@ -61,24 +61,24 @@ class WLoadMoreControl: NSObject {
   /**
   初始化加载更多
   
-  :param: scrollView 需要使用加载更多的滑动视图
-  :param: type       加载的方式，可以为空，为空则默认手动加载
+  - parameter scrollView: 需要使用加载更多的滑动视图
+  - parameter type:       加载的方式，可以为空，为空则默认手动加载
   
-  :returns:
+  - returns:
   */
   convenience init(scrollView:UIScrollView,loadMoreDelegate delegate:WLoadMoreControlDelegate, loadMoreType type:WLoadMoreType?){
     self.init()
     self.scrollView           = scrollView
     self.scrollView!.delegate = self
     self.delegate             = delegate
-    self.scrollView!.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.New | NSKeyValueObservingOptions.Old, context: nil)
-    self.scrollView!.addObserver(self, forKeyPath: "contentOffset", options: NSKeyValueObservingOptions.New | NSKeyValueObservingOptions.Old, context: nil)
+    self.scrollView!.addObserver(self, forKeyPath: "contentSize", options: [NSKeyValueObservingOptions.New, NSKeyValueObservingOptions.Old], context: nil)
+    self.scrollView!.addObserver(self, forKeyPath: "contentOffset", options: [NSKeyValueObservingOptions.New, NSKeyValueObservingOptions.Old], context: nil)
     if type != nil{
       loadMoreType = type!
     }
   }
   
-  override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
+  override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
     if loadMoreView == nil {
       initBottomView()
       return
@@ -154,7 +154,7 @@ extension WLoadMoreControl:UIScrollViewDelegate{
     if scrollView != self.scrollView {
       return
     }
-    println("在loadmore中的打印的contentsety:\(scrollView.contentOffset.y)")
+    print("在loadmore中的打印的contentsety:\(scrollView.contentOffset.y)")
     if (scrollView.contentInset.bottom == enableLoadSety){
       
     }else{
